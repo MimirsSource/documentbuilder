@@ -41,3 +41,12 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.classpath
+.project
+*.prefs
+target/classes/de/mimirssource/tk/documentbuilder/config/builder/ConfigurationBuilderStrategy.class
+*.class
+*.jar
+target/maven-archiver/pom.properties
+*.lst
+target/surefire-reports/de.mimirssource.tk.documentbuilder.config.builder.DefaultConfigurationBuilderStrategyTest.txt
