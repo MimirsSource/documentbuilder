@@ -1,0 +1,47 @@
+{
+	"personalData" : {
+		"firstname"  : "Max",
+		"lastname"   : "Mustermann",
+		"street"     : "Beispielstr. 123",
+		"postalcode" : "80335",
+		"city"       : "München",
+		"familystatus" : "ledig",
+		"nationality"  : "deutsch",
+		"dateofbirth" : "23.01.1981",
+		"cityofbirth" : "München",
+		"email" : "max.mustermann@mustermann.de",
+		"phone" : "0049 176 123456"
+	},
+	"education" : [
+		{
+			"time" : "1987 - 1991",
+			"school" : "Grundschule",
+			"city"   : "München",
+			"title"  : ""
+		},
+		{
+			"time" : "1991 - 2000",
+			"school" : "Gymnasium",
+			"city"   : "München",
+			"title"  : "allgemeine Hochschulreife"
+		},
+		{
+			"time" : "2000 - 2005",
+			"school" : "Informatikstudium, Technische Universität",
+			"city"   : "München",
+			"title"  : "Dipl. Informatiker ( Univ. )"
+		}
+	],
+	"workexperience" : [
+		{
+			"time" : "2006 - 2011",
+			"company" : "Modern Software AG",
+			"position" : "Java Developer"
+		},
+		{
+			"time" : "2011 - today",
+			"company" : "IT Consulting GmbH",
+			"position" : "Software Architect"
+		}
+	]
+}

@@ -28,16 +28,19 @@ import de.mimirssource.tk.documentbuilder.dataprovider.json.FileBasedJsonDataPro
 public class ApplicationConfig {
 	
 	@Bean
+	@Scope("prototype")
 	public TemplateEvaluator templateEvaluator() {
 		return new VelocityTemplateEvaluator();
 	}
 	
 	@Bean
+	@Scope("prototype")
 	public DataProvider dataProvider() {
 		return new FileBasedJsonDataProvider();
 	}
 	
 	@Bean
+	@Scope("prototype")
 	public StreamProvider streamProvider() {
 		return new DefaultFileStreamProvider();
 	}
