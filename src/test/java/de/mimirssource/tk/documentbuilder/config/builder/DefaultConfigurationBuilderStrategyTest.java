@@ -27,6 +27,7 @@ public class DefaultConfigurationBuilderStrategyTest {
 		Map<String, DocumentType> documentTypeStructure = defaultConfigurationBuilderStrategy.getDocumentTypeStructure();
 		DocumentType documentType = documentTypeStructure.get("cv");
 		documentType.getUniqueName();
+		// TODO !!!!!!
 	}
 
 }
