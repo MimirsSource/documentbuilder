@@ -10,15 +10,10 @@ import org.springframework.core.env.Environment;
 import de.mimirssource.tk.documentbuilder.config.builder.ConfigurationBuilderStrategy;
 import de.mimirssource.tk.documentbuilder.config.builder.DefaultConfigurationBuilderStrategy;
 
-/**
- * The spring configuration providing environmental and file based configuration of the application.
- * @author thomas.kloppe
- *
- */
 @Configuration
-@PropertySource("file:config/template.properties")
-@Profile("production")
-public class InfrastructureConfig {
+@PropertySource("classpath:/config/template.properties")
+@Profile("test")
+public class TestInfractructureConfig {
 	
 	@Autowired
 	private Environment environment;

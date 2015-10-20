@@ -10,12 +10,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import de.mimirssource.tk.documentbuilder.config.DocumentType;
-import de.mimirssource.tk.documentbuilder.config.builder.ConfigurationBuilderStrategy;
 import de.mimirssource.tk.documentbuilder.context.ApplicationConfig;
 import de.mimirssource.tk.documentbuilder.context.InfrastructureConfig;
 import de.mimirssource.tk.documentbuilder.core.processor.DocumentProcessor;
 import de.mimirssource.tk.documentbuilder.dataprovider.DataProvider;
+import de.mimirssource.tk.documentbuilder.exceptions.DocumentProcessorException;
 
 public class LocalBuildRunner {
 	
@@ -58,22 +57,19 @@ public class LocalBuildRunner {
 
 
 	public void runApplication() {
-		ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class, InfrastructureConfig.class);
+		System.setProperty("spring.profiles.active", "production");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class, InfrastructureConfig.class);
 		DataProvider dataProvider = context.getBean("dataProvider",DataProvider.class);
-		ConfigurationBuilderStrategy configurationBuilder = context.getBean("configurationBuilderStrategy", ConfigurationBuilderStrategy.class);
-		Map<String, DocumentType> typeStructure = configurationBuilder.getDocumentTypeStructure();
-		DocumentType documentType = typeStructure.get(this.type);
-		if(documentType == null) {
-			((ConfigurableApplicationContext)context).close();
-			throw new IllegalArgumentException("No document type configured for type "+this.type);
-		} 
 		
 		try {
-			DocumentProcessor documentProcessor = context.getBean(DocumentProcessor.class,documentType,this.channelSet);
+			DocumentProcessor documentProcessor = context.getBean(DocumentProcessor.class);
 			Map<String, Object> contentObjectMap = dataProvider.obtainData(new URI(this.sourceUri));
-			documentProcessor.processDocuments(contentObjectMap);
+			documentProcessor.processDocuments(contentObjectMap,this.type,this.channelSet);
 		} catch (URISyntaxException e) {
 			throw new IllegalArgumentException("Could not open URI at "+this.sourceUri,e);
+		} catch (DocumentProcessorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			((ConfigurableApplicationContext)context).close();
 		}

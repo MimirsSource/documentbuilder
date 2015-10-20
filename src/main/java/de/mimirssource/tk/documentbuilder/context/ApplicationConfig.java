@@ -1,19 +1,19 @@
 package de.mimirssource.tk.documentbuilder.context;
 
-import java.util.Set;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.test.context.ActiveProfiles;
 
-import de.mimirssource.tk.documentbuilder.config.DocumentType;
 import de.mimirssource.tk.documentbuilder.core.builder.TemplateEvaluator;
-import de.mimirssource.tk.documentbuilder.core.builder.velocity.VelocityTemplateEvaluator;
+import de.mimirssource.tk.documentbuilder.core.builder.VelocityTemplateEvaluator;
+import de.mimirssource.tk.documentbuilder.core.io.FileBasedOutputProvider;
+import de.mimirssource.tk.documentbuilder.core.io.FileBasedTemplateProvider;
+import de.mimirssource.tk.documentbuilder.core.io.OutputProvider;
+import de.mimirssource.tk.documentbuilder.core.io.TemplateProvider;
 import de.mimirssource.tk.documentbuilder.core.processor.DefaultDocumentProcessor;
 import de.mimirssource.tk.documentbuilder.core.processor.DocumentProcessor;
-import de.mimirssource.tk.documentbuilder.core.processor.streams.DefaultFileStreamProvider;
-import de.mimirssource.tk.documentbuilder.core.processor.streams.StreamProvider;
 import de.mimirssource.tk.documentbuilder.dataprovider.DataProvider;
 import de.mimirssource.tk.documentbuilder.dataprovider.json.FileBasedJsonDataProvider;
 
@@ -41,13 +41,19 @@ public class ApplicationConfig {
 	
 	@Bean
 	@Scope("prototype")
-	public StreamProvider streamProvider() {
-		return new DefaultFileStreamProvider();
+	public TemplateProvider templateProvider() {
+		return new FileBasedTemplateProvider();
 	}
 	
 	@Bean
 	@Scope("prototype")
-	public DocumentProcessor documentProcessor(final DocumentType documentType, final Set<String> channelList) {
-		return new DefaultDocumentProcessor(documentType, channelList);
+	public OutputProvider outputProvider() {
+		return new FileBasedOutputProvider();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public DocumentProcessor documentProcessor() {
+		return new DefaultDocumentProcessor();
 	}
 }
